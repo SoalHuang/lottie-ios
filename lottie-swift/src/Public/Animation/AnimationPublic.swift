@@ -8,6 +8,14 @@
 import Foundation
 import CoreGraphics
 
+public protocol Cancellable {
+    
+    func cancel()
+}
+
+extension URLSessionDataTask: Cancellable { }
+
+
 public extension Animation {
   
   // MARK: Animation (Loading)
@@ -92,35 +100,32 @@ public extension Animation {
    - Parameter animationCache: A cache for holding loaded animations.
    
    */
+  @discardableResult
   static func loadedFrom(url: URL,
-                                closure: @escaping Animation.DownloadClosure,
-                                animationCache: AnimationCacheProvider?) {
-    
-    if let animationCache = animationCache, let animation = animationCache.animation(forKey: url.absoluteString) {
-      closure(animation)
-    } else {
+                         animationCache: AnimationCacheProvider?,
+                         closure: @escaping Animation.DownloadClosure) -> Cancellable? {
+      
+      if let animationCache = animationCache, let animation = animationCache.animation(forKey: url.absoluteString) {
+          closure(animation)
+          return nil
+      }
       let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-        guard error == nil, let jsonData = data else {
-          DispatchQueue.main.async {
-            closure(nil)
+          guard error == nil, let jsonData = data else {
+              DispatchQueue.main.async { closure(nil) }
+              return
           }
-          return
-        }
-        do {
-          let animation = try JSONDecoder().decode(Animation.self, from: jsonData)
-          DispatchQueue.main.async {
-            animationCache?.setAnimation(animation, forKey: url.absoluteString)
-            closure(animation)
+          do {
+              let animation = try JSONDecoder().decode(Animation.self, from: jsonData)
+              DispatchQueue.main.async {
+                  animationCache?.setAnimation(animation, forKey: url.absoluteString)
+                  closure(animation)
+              }
+          } catch {
+              DispatchQueue.main.async { closure(nil) }
           }
-        } catch {
-          DispatchQueue.main.async {
-            closure(nil)
-          }
-        }
-        
       }
       task.resume()
-    }
+      return task
   }
   
   // MARK: Animation (Helpers)

@@ -53,8 +53,8 @@ public extension AnimationView {
    */
   convenience init(url: URL,
                           imageProvider: AnimationImageProvider? = nil,
-                          closure: @escaping AnimationView.DownloadClosure,
-                          animationCache: AnimationCacheProvider? = LRUAnimationCache.sharedCache) {
+                          animationCache: AnimationCacheProvider? = LRUAnimationCache.sharedCache,
+                          closure: @escaping AnimationView.DownloadClosure) {
     
     if let animationCache = animationCache, let animation = animationCache.animation(forKey: url.absoluteString) {
       self.init(animation: animation, imageProvider: imageProvider)
@@ -63,17 +63,21 @@ public extension AnimationView {
       
       self.init(animation: nil, imageProvider: imageProvider)
       
-      Animation.loadedFrom(url: url, closure: { (animation) in
-        if let animation = animation {
-          self.animation = animation
+      taskHandle = Animation.loadedFrom(url: url, animationCache: animationCache) { [weak self] in
+          guard let animation = $0 else {
+              closure(LottieDownloadError.downloadFailed)
+              return
+          }
+          self?.animation = animation
           closure(nil)
-        } else {
-          closure(LottieDownloadError.downloadFailed)
-        }
-      }, animationCache: animationCache)
+      }
     }
   }
-  
+    
+  func cancelLoad() {
+      taskHandle?.cancel()
+  }
+    
   typealias DownloadClosure = (Error?) -> Void
   
 }

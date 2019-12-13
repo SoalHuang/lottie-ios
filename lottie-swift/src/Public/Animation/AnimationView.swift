@@ -767,6 +767,8 @@ final public class AnimationView: LottieView {
   fileprivate var activeAnimationName: String = AnimationView.animationName
   fileprivate var animationID: Int = 0
   
+  internal var taskHandle: Cancellable?
+    
   // MARK: - Private (Building Animation View)
   
   fileprivate func makeAnimationLayer() {
