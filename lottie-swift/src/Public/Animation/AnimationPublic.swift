@@ -39,7 +39,7 @@ public extension Animation {
     
     /// Check cache for animation
     if let animationCache = animationCache,
-      let animation = animationCache.animation(forKey: cacheKey) {
+      let animation = animationCache.animation(for: cacheKey) {
       /// If found, return the animation.
       return animation
     }
@@ -52,7 +52,7 @@ public extension Animation {
       /// Decode animation.
       let json = try Data(contentsOf: url)
       let animation = try JSONDecoder().decode(Animation.self, from: json)
-      animationCache?.setAnimation(animation, forKey: cacheKey)
+      animationCache?.setAnimation(animation, for: cacheKey)
       return animation
     } catch {
       /// Decoding error.
@@ -73,7 +73,7 @@ public extension Animation {
     
     /// Check cache for animation
     if let animationCache = animationCache,
-      let animation = animationCache.animation(forKey: filepath) {
+      let animation = animationCache.animation(for: filepath) {
       return animation
     }
 
@@ -81,7 +81,7 @@ public extension Animation {
       /// Decode the animation.
       let json = try Data(contentsOf: URL(fileURLWithPath: filepath))
       let animation = try JSONDecoder().decode(Animation.self, from: json)
-      animationCache?.setAnimation(animation, forKey: filepath)
+      animationCache?.setAnimation(animation, for: filepath)
       return animation
     } catch {
       /// Decoding Error.
@@ -100,33 +100,34 @@ public extension Animation {
    - Parameter animationCache: A cache for holding loaded animations.
    
    */
-  @discardableResult
-  static func loadedFrom(url: URL,
-                         animationCache: AnimationCacheProvider?,
-                         closure: @escaping Animation.DownloadClosure) -> Cancellable? {
-      
-      if let animationCache = animationCache, let animation = animationCache.animation(forKey: url.absoluteString) {
-          closure(animation)
-          return nil
-      }
-      let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-          guard error == nil, let jsonData = data else {
-              DispatchQueue.main.async { closure(nil) }
-              return
-          }
-          do {
-              let animation = try JSONDecoder().decode(Animation.self, from: jsonData)
-              DispatchQueue.main.async {
-                  animationCache?.setAnimation(animation, forKey: url.absoluteString)
-                  closure(animation)
-              }
-          } catch {
-              DispatchQueue.main.async { closure(nil) }
-          }
-      }
-      task.resume()
-      return task
-  }
+    
+    @discardableResult
+    static func loadedFrom(url: URL,
+                           animationCache: AnimationCacheProvider?,
+                           closure: @escaping Animation.DownloadClosure) -> Cancellable? {
+        
+        if let animationCache = animationCache, let animation = animationCache.animation(for: url.absoluteString) {
+            closure(animation)
+            return nil
+        }
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard error == nil, let jsonData = data else {
+                DispatchQueue.main.async { closure(nil) }
+                return
+            }
+            do {
+                let animation = try JSONDecoder().decode(Animation.self, from: jsonData)
+                DispatchQueue.main.async {
+                    animationCache?.setAnimation(animation, for: url.absoluteString)
+                    closure(animation)
+                }
+            } catch {
+                DispatchQueue.main.async { closure(nil) }
+            }
+        }
+        task.resume()
+        return task
+    }
   
   // MARK: Animation (Helpers)
   

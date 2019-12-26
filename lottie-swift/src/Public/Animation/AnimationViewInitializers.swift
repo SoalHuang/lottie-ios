@@ -51,32 +51,32 @@ public extension AnimationView {
    If none is supplied Lottie will search in the main bundle for images.
    - Parameter closure: A closure to be called when the animation has loaded.
    */
-  convenience init(url: URL,
-                          imageProvider: AnimationImageProvider? = nil,
-                          animationCache: AnimationCacheProvider? = LRUAnimationCache.sharedCache,
-                          closure: @escaping AnimationView.DownloadClosure) {
-    
-    if let animationCache = animationCache, let animation = animationCache.animation(forKey: url.absoluteString) {
-      self.init(animation: animation, imageProvider: imageProvider)
-      closure(nil)
-    } else {
-      
-      self.init(animation: nil, imageProvider: imageProvider)
-      
-      taskHandle = Animation.loadedFrom(url: url, animationCache: animationCache) { [weak self] in
-          guard let animation = $0 else {
-              closure(LottieDownloadError.downloadFailed)
-              return
-          }
-          self?.animation = animation
-          closure(nil)
-      }
+    convenience init(url: URL,
+                     imageProvider: AnimationImageProvider? = nil,
+                     closure: @escaping AnimationView.DownloadClosure,
+                     animationCache: AnimationCacheProvider? = LRUAnimationCache.sharedCache) {
+        
+        if let animationCache = animationCache, let animation = animationCache.animation(for: url.absoluteString) {
+            self.init(animation: animation, imageProvider: imageProvider)
+            closure(nil)
+        } else {
+            
+            self.init(animation: nil, imageProvider: imageProvider)
+            
+            taskHandle = Animation.loadedFrom(url: url, animationCache: animationCache) { [weak self] in
+                guard let animation = $0 else {
+                    closure(LottieDownloadError.downloadFailed)
+                    return
+                }
+                self?.animation = animation
+                closure(nil)
+            }
+        }
     }
-  }
     
-  func cancelLoad() {
-      taskHandle?.cancel()
-  }
+    func cancelLoad() {
+        taskHandle?.cancel()
+    }
     
   typealias DownloadClosure = (Error?) -> Void
   

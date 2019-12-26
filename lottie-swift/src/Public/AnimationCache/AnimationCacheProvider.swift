@@ -15,10 +15,9 @@ import Foundation
  */
 public protocol AnimationCacheProvider {
   
-  func animation(forKey: String) -> Animation?
+  func animation(for key: String) -> Animation?
   
-  func setAnimation(_ animation: Animation, forKey: String)
+  func setAnimation(_ animation: Animation, for key: String)
   
   func clearCache()
-  
 }
