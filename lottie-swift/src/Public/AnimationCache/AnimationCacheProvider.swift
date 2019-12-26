@@ -14,10 +14,14 @@ import Foundation
  Lottie comes with a prebuilt LRU Animation Cache.
  */
 public protocol AnimationCacheProvider {
-  
-  func animation(for key: String) -> Animation?
-  
-  func setAnimation(_ animation: Animation, for key: String)
-  
-  func clearCache()
+    
+    func animation(for key: String) -> Animation?
+    
+    func setAnimation(_ animation: Animation, for key: String, writeInDisk: Bool)
+    
+    func clearCache()
+    
+    func clearMemoryCache()
+    
+    func clearDiskCache()
 }

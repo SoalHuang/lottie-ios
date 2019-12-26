@@ -52,7 +52,7 @@ public extension Animation {
       /// Decode animation.
       let json = try Data(contentsOf: url)
       let animation = try JSONDecoder().decode(Animation.self, from: json)
-      animationCache?.setAnimation(animation, for: cacheKey)
+      animationCache?.setAnimation(animation, for: cacheKey, writeInDisk: false)
       return animation
     } catch {
       /// Decoding error.
@@ -81,7 +81,7 @@ public extension Animation {
       /// Decode the animation.
       let json = try Data(contentsOf: URL(fileURLWithPath: filepath))
       let animation = try JSONDecoder().decode(Animation.self, from: json)
-      animationCache?.setAnimation(animation, for: filepath)
+      animationCache?.setAnimation(animation, for: filepath, writeInDisk: false)
       return animation
     } catch {
       /// Decoding Error.
@@ -118,7 +118,7 @@ public extension Animation {
             do {
                 let animation = try JSONDecoder().decode(Animation.self, from: jsonData)
                 DispatchQueue.main.async {
-                    animationCache?.setAnimation(animation, for: url.absoluteString)
+                    animationCache?.setAnimation(animation, for: url.absoluteString, writeInDisk: true)
                     closure(animation)
                 }
             } catch {

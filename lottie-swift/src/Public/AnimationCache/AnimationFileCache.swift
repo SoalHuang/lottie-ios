@@ -26,7 +26,7 @@ extension String {
     }
 }
 
-extension AnimationFileCache: AnimationCacheProvider {
+extension AnimationFileCache {
     
     public func animation(for key: String) -> Animation? {
         let path = filePath(for: key)

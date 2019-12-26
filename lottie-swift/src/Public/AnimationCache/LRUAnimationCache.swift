@@ -7,27 +7,7 @@
 
 import Foundation
 
-/**
- An Animation Cache that will store animations up to `cacheSize`.
- 
- Once `cacheSize` is reached, the least recently used animation will be ejected.
- The default size of the cache is 100.
- */
-public class LRUAnimationCache: AnimationCacheProvider {
-    
-    public init() { }
-    
-    /// Clears the Cache.
-    public func clearCache() {
-        cacheMap.removeAll()
-        lruList.removeAll()
-    }
-    
-    /// The global shared Cache.
-    public static let sharedCache = LRUAnimationCache()
-    
-    /// The size of the cache.
-    public var cacheSize: Int = 100
+extension LRUAnimationCache: AnimationCacheProvider {
     
     public func animation(for key: String) -> Animation? {
         let updateLru = {
@@ -47,14 +27,47 @@ public class LRUAnimationCache: AnimationCacheProvider {
         return animation
     }
     
-    public func setAnimation(_ animation: Animation, for key: String) {
+    public func setAnimation(_ animation: Animation, for key: String, writeInDisk: Bool) {
         cacheMap[key] = animation
         lruList.append(key)
         if lruList.count > cacheSize {
             lruList.remove(at: 0)
         }
-        fileCache.setAnimation(animation, for: key)
+        if writeInDisk {
+            fileCache.setAnimation(animation, for: key)
+        }
     }
+    
+    public func clearCache() {
+        clearMemoryCache()
+        clearDiskCache()
+    }
+    
+    public func clearMemoryCache() {
+        cacheMap.removeAll()
+        lruList.removeAll()
+    }
+    
+    public func clearDiskCache() {
+        fileCache.clearCache()
+    }
+}
+
+/**
+ An Animation Cache that will store animations up to `cacheSize`.
+ 
+ Once `cacheSize` is reached, the least recently used animation will be ejected.
+ The default size of the cache is 100.
+ */
+public class LRUAnimationCache {
+    
+    public init() { }
+    
+    /// The global shared Cache.
+    public static let sharedCache = LRUAnimationCache()
+    
+    /// The size of the cache.
+    public var cacheSize: Int = 100
     
     fileprivate var cacheMap: [String: Animation] = [:]
     fileprivate var lruList: [String] = []
