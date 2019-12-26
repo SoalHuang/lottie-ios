@@ -53,8 +53,8 @@ public extension AnimationView {
    */
     convenience init(url: URL,
                      imageProvider: AnimationImageProvider? = nil,
-                     closure: @escaping AnimationView.DownloadClosure,
-                     animationCache: AnimationCacheProvider? = LRUAnimationCache.sharedCache) {
+                     animationCache: AnimationCacheProvider? = LRUAnimationCache.sharedCache,
+                     closure: @escaping AnimationView.DownloadClosure) {
         
         if let animationCache = animationCache, let animation = animationCache.animation(for: url.absoluteString) {
             self.init(animation: animation, imageProvider: imageProvider)

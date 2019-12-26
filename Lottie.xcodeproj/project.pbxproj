@@ -615,11 +615,11 @@
 		486E89F4220B790E007CD915 /* KeyframeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486E879E220B78BF007CD915 /* KeyframeExtensions.swift */; };
 		486E89F5220B790E007CD915 /* AnimationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486E87A0220B78BF007CD915 /* AnimationContext.swift */; };
 		48F4EECD229F167F00949A97 /* TextCompositionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486E8724220B78BF007CD915 /* TextCompositionLayer.swift */; };
-		9C0A478223B4BF5C00AA8458 /* AnimationFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A478123B4BF5C00AA8458 /* AnimationFileCache.swift */; };
-		9C0A478323B4BF5C00AA8458 /* AnimationFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A478123B4BF5C00AA8458 /* AnimationFileCache.swift */; };
-		9C0A478423B4BF5C00AA8458 /* AnimationFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A478123B4BF5C00AA8458 /* AnimationFileCache.swift */; };
-		9C0A478523B4BF5C00AA8458 /* AnimationFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A478123B4BF5C00AA8458 /* AnimationFileCache.swift */; };
-		9C0A478623B4BF5C00AA8458 /* AnimationFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A478123B4BF5C00AA8458 /* AnimationFileCache.swift */; };
+		9C0A478E23B4C35600AA8458 /* AnimationFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A478D23B4C35600AA8458 /* AnimationFileCache.swift */; };
+		9C0A478F23B4C35600AA8458 /* AnimationFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A478D23B4C35600AA8458 /* AnimationFileCache.swift */; };
+		9C0A479023B4C35600AA8458 /* AnimationFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A478D23B4C35600AA8458 /* AnimationFileCache.swift */; };
+		9C0A479123B4C35600AA8458 /* AnimationFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A478D23B4C35600AA8458 /* AnimationFileCache.swift */; };
+		9C0A479223B4C35600AA8458 /* AnimationFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A478D23B4C35600AA8458 /* AnimationFileCache.swift */; };
 		CD1616482367325A00325353 /* GradientValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1616472367325A00325353 /* GradientValueProvider.swift */; };
 		CD1616492367325A00325353 /* GradientValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1616472367325A00325353 /* GradientValueProvider.swift */; };
 		CD16164A2367325A00325353 /* GradientValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1616472367325A00325353 /* GradientValueProvider.swift */; };
@@ -784,7 +784,7 @@
 		486E879D220B78BF007CD915 /* Interpolatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpolatable.swift; sourceTree = "<group>"; };
 		486E879E220B78BF007CD915 /* KeyframeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyframeExtensions.swift; sourceTree = "<group>"; };
 		486E87A0220B78BF007CD915 /* AnimationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationContext.swift; sourceTree = "<group>"; };
-		9C0A478123B4BF5C00AA8458 /* AnimationFileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationFileCache.swift; sourceTree = "<group>"; };
+		9C0A478D23B4C35600AA8458 /* AnimationFileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationFileCache.swift; sourceTree = "<group>"; };
 		CD1616472367325A00325353 /* GradientValueProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientValueProvider.swift; sourceTree = "<group>"; };
 		E654753822AAA9AD00FE590F /* LayerTextProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayerTextProvider.swift; sourceTree = "<group>"; };
 		E6EAA7B722AA834F00F345A4 /* AnimationTextProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationTextProvider.swift; sourceTree = "<group>"; };
@@ -960,7 +960,7 @@
 			children = (
 				486E8715220B78BF007CD915 /* AnimationCacheProvider.swift */,
 				486E8716220B78BF007CD915 /* LRUAnimationCache.swift */,
-				9C0A478123B4BF5C00AA8458 /* AnimationFileCache.swift */,
+				9C0A478D23B4C35600AA8458 /* AnimationFileCache.swift */,
 			);
 			path = AnimationCache;
 			sourceTree = "<group>";
@@ -1654,7 +1654,7 @@
 				486E87FF220B78D1007CD915 /* KeyedDecodingContainerExtensions.swift in Sources */,
 				486E8800220B78D1007CD915 /* KeyframeGroup.swift in Sources */,
 				486E8801220B78D1007CD915 /* Keyframe.swift in Sources */,
-				9C0A478223B4BF5C00AA8458 /* AnimationFileCache.swift in Sources */,
+				9C0A478E23B4C35600AA8458 /* AnimationFileCache.swift in Sources */,
 				486E8802220B78D1007CD915 /* TextDocument.swift in Sources */,
 				486E8803220B78D1007CD915 /* Glyph.swift in Sources */,
 				486E8804220B78D1007CD915 /* TextAnimator.swift in Sources */,
@@ -1789,7 +1789,7 @@
 				486E8878220B78E4007CD915 /* KeyedDecodingContainerExtensions.swift in Sources */,
 				486E8879220B78E4007CD915 /* KeyframeGroup.swift in Sources */,
 				486E887A220B78E4007CD915 /* Keyframe.swift in Sources */,
-				9C0A478323B4BF5C00AA8458 /* AnimationFileCache.swift in Sources */,
+				9C0A478F23B4C35600AA8458 /* AnimationFileCache.swift in Sources */,
 				486E887B220B78E4007CD915 /* TextDocument.swift in Sources */,
 				486E887C220B78E4007CD915 /* Glyph.swift in Sources */,
 				486E887D220B78E4007CD915 /* TextAnimator.swift in Sources */,
@@ -1930,7 +1930,7 @@
 				4866744322249C4E00258C00 /* TextAnimatorNode.swift in Sources */,
 				486E8902220B78F4007CD915 /* CurveVertex.swift in Sources */,
 				486E8903220B78F4007CD915 /* VectorsExtensions.swift in Sources */,
-				9C0A478423B4BF5C00AA8458 /* AnimationFileCache.swift in Sources */,
+				9C0A479023B4C35600AA8458 /* AnimationFileCache.swift in Sources */,
 				486E8904220B78F4007CD915 /* InterpolatableExtensions.swift in Sources */,
 				486E8905220B78F4007CD915 /* Interpolatable.swift in Sources */,
 				486E8906220B78F4007CD915 /* KeyframeExtensions.swift in Sources */,
@@ -2053,7 +2053,7 @@
 				486E8966220B78FF007CD915 /* KeyedDecodingContainerExtensions.swift in Sources */,
 				486E8967220B78FF007CD915 /* KeyframeGroup.swift in Sources */,
 				486E8968220B78FF007CD915 /* Keyframe.swift in Sources */,
-				9C0A478523B4BF5C00AA8458 /* AnimationFileCache.swift in Sources */,
+				9C0A479123B4C35600AA8458 /* AnimationFileCache.swift in Sources */,
 				486E8969220B78FF007CD915 /* TextDocument.swift in Sources */,
 				486E896A220B78FF007CD915 /* Glyph.swift in Sources */,
 				486E896B220B78FF007CD915 /* TextAnimator.swift in Sources */,
@@ -2194,7 +2194,7 @@
 				4866744522249C4E00258C00 /* TextAnimatorNode.swift in Sources */,
 				486E89F0220B790E007CD915 /* CurveVertex.swift in Sources */,
 				486E89F1220B790E007CD915 /* VectorsExtensions.swift in Sources */,
-				9C0A478623B4BF5C00AA8458 /* AnimationFileCache.swift in Sources */,
+				9C0A479223B4C35600AA8458 /* AnimationFileCache.swift in Sources */,
 				486E89F2220B790E007CD915 /* InterpolatableExtensions.swift in Sources */,
 				486E89F3220B790E007CD915 /* Interpolatable.swift in Sources */,
 				486E89F4220B790E007CD915 /* KeyframeExtensions.swift in Sources */,
