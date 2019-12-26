@@ -60,7 +60,7 @@ public class AnimationFileCache {
     
     static let shared = AnimationFileCache()
     
-    private let directoryPath = NSHomeDirectory().appending("/Documents/LottieCache/AnimationFile")
+    private let directoryPath = (NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first ?? NSTemporaryDirectory()).appending("/LottieFileCache")
     
     init() {
         createDirectoryIfNotExist()
