@@ -842,9 +842,9 @@ final public class AnimationView: LottieView {
       case .pause:
         removeCurrentAnimation()
       case .pauseAndRestore:
+        if isAnimationPlaying { waitingToPlayAimation = true }
         currentContext.closure.ignoreDelegate = true
         removeCurrentAnimation()
-        /// Keep the stale context around for when the app enters the foreground.
         self.animationContext = currentContext
       case .forceFinish:
         removeCurrentAnimation()
@@ -853,19 +853,17 @@ final public class AnimationView: LottieView {
     }
   }
   
-  fileprivate var waitingToPlayAimation: Bool = false
-  fileprivate func updateAnimationForForegroundState() {
-    if let currentContext = animationContext {
-      if waitingToPlayAimation {
-        waitingToPlayAimation = false
-        self.addNewAnimationForContext(currentContext)
-      } else if backgroundBehavior == .pauseAndRestore {
-        /// Restore animation from saved state
-        updateInFlightAnimation()
-      }
+    fileprivate var waitingToPlayAimation: Bool = false
+    fileprivate func updateAnimationForForegroundState() {
+        guard let currentContext = animationContext else { return }
+        if waitingToPlayAimation {
+            waitingToPlayAimation.toggle()
+            addNewAnimationForContext(currentContext)
+        } else if backgroundBehavior == .pauseAndRestore {
+            updateInFlightAnimation()
+        }
     }
-  }
-  
+    
   /// Stops the current in flight animation and freezes the animation in its current state.
   fileprivate func removeCurrentAnimation() {
     guard animationContext != nil else { return }

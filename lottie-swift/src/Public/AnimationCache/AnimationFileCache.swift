@@ -31,8 +31,16 @@ extension AnimationFileCache {
     public func animation(for key: String) -> Animation? {
         let path = filePath(for: key)
         let url = URL(fileURLWithPath: path, isDirectory: false)
-        guard let data = try? Data(contentsOf: url) else { return nil }
-        return try? JSONDecoder().decode(Animation.self, from: data)
+        do {
+            let data = try Data(contentsOf: url)
+            let animation = try JSONDecoder().decode(Animation.self, from: data)
+            return animation
+        } catch {
+            #if DEBUG
+            print("decode file lottie failed: \(error.localizedDescription)")
+            #endif
+            return nil
+        }
     }
     
     public func setAnimation(_ animation: Animation, for key: String) {

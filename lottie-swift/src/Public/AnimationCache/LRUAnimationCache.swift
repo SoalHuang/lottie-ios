@@ -31,7 +31,8 @@ extension LRUAnimationCache: AnimationCacheProvider {
         cacheMap[key] = animation
         lruList.append(key)
         if lruList.count > cacheSize {
-            lruList.remove(at: 0)
+            let removedKey = lruList.removeFirst()
+            cacheMap.removeValue(forKey: removedKey)
         }
         if writeInDisk {
             fileCache.setAnimation(animation, for: key)
@@ -67,7 +68,7 @@ public class LRUAnimationCache {
     public static let sharedCache = LRUAnimationCache()
     
     /// The size of the cache.
-    public var cacheSize: Int = 100
+    public var cacheSize: Int = 50
     
     fileprivate var cacheMap: [String: Animation] = [:]
     fileprivate var lruList: [String] = []
